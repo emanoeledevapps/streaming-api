@@ -3,19 +3,13 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-const videos = require('../mockdata');
-
-router.get('/', (req, res) => {
-    res.json(videos);
-});
-
 router.get('/:id/data', (req, res)=> {
     const id = parseInt(req.params.id)
     res.json(videos[id])
 })
 
 router.get('/video/:id', (req, res) => {
-    const videoPath = `assets/${req.params.id}.mp4`;
+    const videoPath = `./src/public/${req.params.id}.mp4`;
     const videoStat = fs.statSync(videoPath);
     const fileSize = videoStat.size;
     const videoRange = req.headers.range;
